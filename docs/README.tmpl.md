@@ -2,7 +2,9 @@
 
 > {%= description %}
 
-This helper was designed for usage with [Assemble](https://assemble.io), feel free to fork it and customize it for your own needs.
+This helper was designed for usage with [Assemble](https://assemble.io), initially as a response to [this question on StackOverflow](http://stackoverflow.com/a/20854630/1267639). Feel free to fork it and customize it for your own needs.
+
+If you find a bug or have a feature request, [please create an issue](https://github.com/helpers/handlebars-helper-partial/issues).
 
 ## Installation
 {%= _.doc("installation.md") %}

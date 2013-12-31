@@ -57,15 +57,14 @@ module.exports.register = function (Handlebars, options, params) {
     var template = Handlebars.partials[name];
     var fn = Handlebars.compile(template);
 
-    // Prepend output with the filepath to the original partial
     var output = fn(context).replace(/^\s+/, '');
 
-    opts.data.include = opts.data.include || {};
-    if(opts.data.include.origin === true) {
+    // Prepend output with the filepath to the original partial
+    var include = opts.include || opts.data.include || {};
+    if(include.origin === true) {
       output = '<!-- ' + filepath + ' -->\n' + output;
     }
 
     return new Handlebars.SafeString(output);
   });
-
 };
