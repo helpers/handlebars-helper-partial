@@ -1,5 +1,5 @@
 /**
- * Handlebars Helpers: {{include}}
+ * Handlebars Helpers: {{partial}}
  * Copyright (c) 2013 Jon Schlinkert
  * Licensed under the MIT License (MIT).
  */
@@ -28,7 +28,7 @@ module.exports.register = function (Handlebars, options, params) {
    * @return {String}         Returns compiled HTML
    * @xample: {{partial 'foo' bar}}
    */
-  Handlebars.registerHelper('include', function(name, context) {
+  Handlebars.registerHelper('partial', function(name, context) {
     if(!Array.isArray(assemble.partials)) {
       assemble.partials = [assemble.partials];
     }
