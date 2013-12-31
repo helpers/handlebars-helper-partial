@@ -1,4 +1,4 @@
-# {{handlebars-helper-partial}} [![NPM version](https://badge.fury.io/js/handlebars-helper-partial.png)](http://badge.fury.io/js/handlebars-helper-partial) 
+# {{partial}} [![NPM version](https://badge.fury.io/js/handlebars-helper-partial.png)](http://badge.fury.io/js/handlebars-helper-partial) 
 
 > Handlebars helper, alternative to built-in partials. Like Assemble itself, this helper will automatically determine the correct context to use, or a context may be explicitly passed in as a second parameter.
 
