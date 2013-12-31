@@ -67,7 +67,7 @@ module.exports = function(grunt) {
       helpers: {
         options: {
           username: 'helpers',
-          include: ['handlebars-helper'],
+          include: ['handlebars-helper', 'partial'],
           exclude: ['examples']
         },
         files: {
