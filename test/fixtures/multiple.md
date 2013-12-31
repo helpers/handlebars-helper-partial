@@ -6,46 +6,46 @@ quux: This property is from PAGE YFM (multiple.hbs)
 ---
 # `explicit` context
 Should be from `explicit.json`, then the YFM of the page, then the options, then the root.
-{{include 'foo' explicit}}
+{{partial 'foo' explicit}}
 
 
 # `page` context
 Should be from the YFM of the page, then the options, then the root.
-{{include 'foo' page}}
+{{partial 'foo' page}}
 
 
 # `this` context
 Should be from the YFM of the page, then the options, then the root.
-{{include 'foo' this}}
+{{partial 'foo' this}}
 
 
 # `data` context
 Should be from the YFM of the partial, `foo`, first; then fallback on `foo.json`, then the page, then the options, then the root.
-{{include 'foo' data}}
+{{partial 'foo' data}}
 
 
 # `foo` context
 Should be from the YFM of the partial, `foo`, first; then fallback on `foo.json`, then the page, then the options, then the root.
-{{include 'foo' foo}}
+{{partial 'foo' foo}}
 
 
 # empty context
 Should be from the YFM of the partial, `foo`, first; then fallback on `foo.json`, then the page, then the options, then the root.
-{{include 'foo'}}
+{{partial 'foo'}}
 
 
 # `bar` context (block)
 Should be from the YFM of the partial, `foo`, first; then fallback on `foo.json`, then fallback on `bar.json`, then the page, then the options, then the root.
 {{#bar}}
-  {{include 'foo'}}
+  {{partial 'foo'}}
 {{/bar}}
 
 # `parent` context (block)
 Should use the context from the page.
 {{#bar}}
-  {{include 'foo' ../this}}
+  {{partial 'foo' ../this}}
 {{/bar}}
 
 {{#bar}}
-  {{include 'foo' ../page}}
+  {{partial 'foo' ../page}}
 {{/bar}}
