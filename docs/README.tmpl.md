@@ -2,6 +2,8 @@
 
 > {%= description %}
 
+This helper was designed for usage with [Assemble](https://assemble.io), but feel free to fork it and customize it for your own needs.
+
 ## Installation
 {%= _.doc("installation.md") %}
 

@@ -2,6 +2,8 @@
 
 > Handlebars helper, alternative to built-in partials. Like Assemble itself, this helper will automatically determine the correct context to use, or a context may be explicitly passed in as a second parameter.
 
+This helper was designed for usage with [Assemble](https://assemble.io), but feel free to fork it and customize it for your own needs.
+
 ## Installation
 Use [npm](npmjs.org) to install the package: `npm i handlebars-helper-partial`.
 
