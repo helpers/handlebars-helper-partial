@@ -60,14 +60,14 @@ module.exports.register = function (Handlebars, options, params) {
     // via the native {{>partial}} mechanism.  If so, reuse the compiled partial.
     // see https://github.com/helpers/handlebars-helper-partial/issues/1
     var fn;  
-    if (typeof template !== 'function') {
+    if (!_.isFunction(template)) {
 
         // not compiled, so we can compile it safely
         fn = Handlebars.compile(template);
     }
     else {
 
-        // already compiled, just reuse it.
+        // already compiled, just reuse it
         fn = template;
     }
 
