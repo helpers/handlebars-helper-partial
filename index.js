@@ -55,7 +55,21 @@ module.exports.register = function (Handlebars, options, params) {
     context = grunt.config.process(context);
 
     var template = Handlebars.partials[name];
-    var fn = Handlebars.compile(template);
+
+    // Check if this partial has already been compiled, whether via this helper, another helper or
+    // via the native {{>partial}} mechanism.  If so, reuse the compiled partial.
+    // see https://github.com/helpers/handlebars-helper-partial/issues/1
+    var fn;  
+    if (typeof template !== 'function') {
+
+        // not compiled, so we can compile it safely
+        fn = Handlebars.compile(template);
+    }
+    else {
+
+        // already compiled, just reuse it.
+        fn = template;
+    }
 
     var output = fn(context).replace(/^\s+/, '');
 
