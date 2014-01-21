@@ -60,12 +60,18 @@ module.exports.register = function (Handlebars, options, params) {
     };
 
     // now remove page content from this and opts before creating new context
-    context = _.extend({}, grunt.config.data, removePageContent(opts), removePageContent(this), opts.data[name], metadata, context);
+    context = _.extend({}, 
+                       grunt.config.data, 
+                       removePageContent(opts), 
+                       removePageContent(this), 
+                       opts.data[name], 
+                       metadata, 
+                       context);
 
     // process any templates inside context property values
     context = grunt.config.process(context);
 
-    // lookup this partial name from the partials registered with Handlebars
+    // look up this partial name from the partials registered with Handlebars
     var template = Handlebars.partials[name];
 
     // Check if this partial has already been compiled, whether via this helper, another helper or
