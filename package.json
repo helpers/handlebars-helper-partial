@@ -1,7 +1,7 @@
 {
   "name": "handlebars-helper-partial",
   "description": "Handlebars helper, alternative to built-in partials. Like Assemble itself, this helper will automatically determine the correct context to use, or a context may be explicitly passed in as a second parameter.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/helpers/handlebars-helper-partial",
   "author": {
     "name": "Jon Schlinkert",
