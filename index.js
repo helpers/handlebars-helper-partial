@@ -6,7 +6,7 @@
 
 var path = require('path');
 var _ = require('lodash');
-var yfm = require('assemble-yaml');
+var matter = require('gray-matter');
 
 
 
@@ -39,17 +39,19 @@ module.exports.register = function (Handlebars, options, params) {
 
     // Process context, using YAML front-matter,
     // grunt config and Assemble options.data
-    var pageObj = yfm.extract(filepath) || {};
+    var pageObj = matter.read(filepath) || {};
     var metadata = pageObj.context || {};
 
     // `context`           = the given context (second parameter)
     // `metadata`          = YAML front matter of the partial
-    // `opts.data[name]`   = JSON/YAML data file defined in Assemble options.data with a basename
-    //                       matching the name of the partial, e.g {{partial 'foo'}} => foo.json
-    // `this`              = YAML front matter of _either_ the "inheriting" page, or a block
-    //                       expression wrapping the helper
+    // `opts.data[name]`   = JSON/YAML data file defined in Assemble options.data
+    //                       with a basename matching the name of the partial, e.g
+    //                       {{include 'foo'}} => foo.json
+    // `this`              = Typically either YAML front matter of the "inheriting" page,
+    //                       layout, block expression, or "parent" helper wrapping this helper
     // `opts`              = Custom properties defined in Assemble options
-    // `grunt.config.data` = Data from grunt.config.data (e.g. pkg: grunt.file.readJSON('package.json'))
+    // `grunt.config.data` = Data from grunt.config.data
+    //                       (e.g. pkg: grunt.file.readJSON('package.json'))
 
     context = _.extend({}, grunt.config.data, opts, this, opts.data[name], metadata, context);
     context = grunt.config.process(context);

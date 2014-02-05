@@ -1,7 +1,7 @@
 {
   "name": "handlebars-helper-partial",
   "description": "Handlebars helper, alternative to built-in partials. Like Assemble itself, this helper will automatically determine the correct context to use, or a context may be explicitly passed in as a second parameter.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/helpers/handlebars-helper-partial",
   "author": {
     "name": "Jon Schlinkert",
@@ -22,8 +22,8 @@
   ],
   "main": "./index.js",
   "dependencies": {
-    "assemble-yaml": "~0.2.1",
-    "lodash": "~2.4.0"
+    "lodash": "~2.4.0",
+    "gray-matter": "~0.2.6"
   },
   "devDependencies": {
     "assemble": "~0.4.33",
