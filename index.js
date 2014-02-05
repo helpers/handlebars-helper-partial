@@ -53,11 +53,43 @@ module.exports.register = function (Handlebars, options, params) {
     // `grunt.config.data` = Data from grunt.config.data
     //                       (e.g. pkg: grunt.file.readJSON('package.json'))
 
-    context = _.extend({}, grunt.config.data, opts, this, opts.data[name], metadata, context);
+    // omit pages and pagination properties from opts and this contexts to avoid processing templates
+    // unintentionally
+    // see https://github.com/helpers/handlebars-helper-partial/issues/3
+    // we do this omit at least twice, so wrap in function for DRYness
+    var removePageContent = function(target) {
+      return _.omit(target, 'pages', 'pagination');
+    };
+
+    // now remove page content from this and opts before creating new context
+    context = _.extend({}, 
+                       grunt.config.data, 
+                       removePageContent(opts), 
+                       removePageContent(this), 
+                       opts.data[name], 
+                       metadata, 
+                       context);
+
+    // process any templates inside context property values
     context = grunt.config.process(context);
 
+    // look up this partial name from the partials registered with Handlebars
     var template = Handlebars.partials[name];
-    var fn = Handlebars.compile(template);
+
+    // Check if this partial has already been compiled, whether via this helper, another helper or
+    // via the native {{>partial}} mechanism.  If so, reuse the compiled partial.
+    // see https://github.com/helpers/handlebars-helper-partial/issues/1
+    var fn;  
+    if (!_.isFunction(template)) {
+
+        // not compiled, so we can compile it safely
+        fn = Handlebars.compile(template);
+    }
+    else {
+
+        // already compiled, just reuse it
+        fn = template;
+    }
 
     var output = fn(context).replace(/^\s+/, '');
 
