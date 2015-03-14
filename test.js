@@ -1,5 +1,5 @@
 /*!
- * helper-partial <https://github.com/helpers/helper-partial>
+ * handlebars-helper-partial <https://github.com/helpers/handlebars-helper-partial>
  *
  * Copyright (c) 2015, Jon Schlinkert.
  * Licensed under the MIT License.
@@ -11,24 +11,52 @@
 var assert = require('assert');
 var should = require('should');
 var helper = require('./');
+var Template = require('template');
+var handlebars;
+var template;
 
-var handlebars = require('handlebars');
-
-describe('partial: async', function () {
-  it('should work as a handlebars helper:', function () {
+describe('handlebars', function () {
+  beforeEach(function () {
+    handlebars = require('handlebars');
     handlebars.registerHelper('partial', helper(handlebars));
+    handlebars.registerPartial('button', 'Click me!{{text}}after');
+    handlebars.registerPartial('outter', 'Click me!{{> inner }}after');
+    handlebars.registerPartial('inner', 'Click me!{{zzz}}after');
+  });
 
-    handlebars.registerPartial('aaa', 'A. before{{foo}}after');
-    handlebars.registerPartial('bbb', 'B. before{{foo}}after');
-    handlebars.registerPartial('ccc', 'C. before{{foo}}after');
+  it('should work as a handlebars helper:', function () {
+    var ctx = {text: ' __button__ '};
+    handlebars.compile('{{partial "button"}}')(ctx).should.eql('Click me! __button__ after');
+  });
 
-    var a = handlebars.compile('{{partial "aaa"}}');
-    a({foo: ' __aaa__ '}).should.eql('A. before __aaa__ after');
+  it('should allow context to be passed:', function () {
+    var ctx = {a: {b: {c: {text: 'DDD'}}}};
+    handlebars.compile('{{partial "button" a.b.c}}')(ctx).should.eql('Click me!DDDafter');
+  });
 
-    var b = handlebars.compile('{{partial "bbb"}}');
-    b({foo: ' __bbb__ '}).should.eql('B. before __bbb__ after');
+  it('should work with other partials:', function () {
+    var ctx = {zzz: ' __ZZZ__ '};
+    handlebars.compile('{{partial "outter"}}')(ctx).should.eql('Click me!Click me! __ZZZ__ afterafter');
+  });
+});
 
-    var c = handlebars.compile('{{partial "ccc"}}');
-    c({foo: ' __ccc__ '}).should.eql('C. before __ccc__ after');
+describe('Template', function () {
+  beforeEach(function () {
+    template = new Template();
+    handlebars = require('engine-handlebars');
+
+    template.engine('hbs', handlebars);
+    template.helper('partial', helper(handlebars));
+
+    template.partial('button.hbs', 'Click me!{{text}}after');
+    template.data({text: ' __BAR__ '})
+  });
+
+  it('should work with Template:', function (done) {
+    template.render('{{partial "button.hbs"}}', {ext: 'hbs'}, function (err, content) {
+      if (err) console.log(err)
+      content.should.eql('Click me! __BAR__ after');
+    });
+    done();
   });
 });
